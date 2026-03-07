@@ -205,7 +205,7 @@ export default function HotelDetailsClient({ hotel }: Props) {
                   ))}
                 </div>
                 <p className="text-gray-600 dark:text-gray-300">
-                  {hotel.reviews || 0} verified reviews
+                  {/* {hotel.reviews || 0} verified reviews */}
                 </p>
               </div>
             </div>
