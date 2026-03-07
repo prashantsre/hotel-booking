@@ -1,28 +1,26 @@
-# Use official Java image
-FROM eclipse-temurin:17-jdk-alpine
-
-# Set working directory
+# Use Maven image for building
+FROM maven:3.8.4-openjdk-17-slim AS build
 WORKDIR /app
 
-# Copy maven wrapper and pom.xml
-COPY mvnw .
-COPY .mvn .mvn
+# Copy pom.xml first (for better caching)
 COPY pom.xml .
-
-# Make mvnw executable
-RUN chmod +x mvnw
-
-# Download dependencies
-RUN ./mvnw dependency:go-offline -B
+RUN mvn dependency:go-offline
 
 # Copy source code
-COPY src src
+COPY src ./src
 
 # Build the application
-RUN ./mvnw package -DskipTests
+RUN mvn package -DskipTests
+
+# Use smaller JRE image for runtime
+FROM eclipse-temurin:17-jre-alpine
+WORKDIR /app
+
+# Copy the jar from build stage
+COPY --from=build /app/target/*.jar app.jar
 
 # Expose port
 EXPOSE 8080
 
 # Run the application
-CMD ["java", "-jar", "target/*.jar"]
+CMD ["java", "-jar", "app.jar"]
