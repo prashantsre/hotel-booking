@@ -1,10 +1,10 @@
-# Use Maven image for building
+# Build stage
 FROM maven:3.8.4-openjdk-17-slim AS build
 WORKDIR /app
 
-# Copy pom.xml first (for better caching)
+# Copy pom.xml first
 COPY pom.xml .
-RUN mvn dependency:go-offline
+RUN mvn dependency:go-offline -B
 
 # Copy source code
 COPY src ./src
@@ -12,15 +12,24 @@ COPY src ./src
 # Build the application
 RUN mvn package -DskipTests
 
-# Use smaller JRE image for runtime
+# Run stage
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-# Copy the jar from build stage
+# Copy the jar
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose port
-EXPOSE 8080
+# Create a startup script with debugging
+RUN echo '#!/bin/sh' > /app/start.sh && \
+    echo 'echo "=========================================="' >> /app/start.sh && \
+    echo 'echo "Starting Hotel Booking Backend"' >> /app/start.sh && \
+    echo 'echo "=========================================="' >> /app/start.sh && \
+    echo 'echo "Active Profile: $SPRING_PROFILES_ACTIVE"' >> /app/start.sh && \
+    echo 'echo "Database URL: $DATABASE_URL"' >> /app/start.sh && \
+    echo 'echo "Database Username: $DATABASE_USERNAME"' >> /app/start.sh && \
+    echo 'echo "=========================================="' >> /app/start.sh && \
+    echo 'exec java -jar app.jar' >> /app/start.sh && \
+    chmod +x /app/start.sh
 
-# Run the application
-CMD ["java", "-jar", "app.jar"]
+EXPOSE 8080
+CMD ["/app/start.sh"]
