@@ -44,7 +44,7 @@ const HotelCard = ({ hotel }: HotelCardProps) => {
   const discountedPrice = Math.round(originalPrice * 0.9);
   const totalPrice = discountedPrice * 2; // Assuming 2 nights
   const rating = hotel.rating || 4.5;
-  const reviewCount = hotel.reviews || 128;
+  const reviewCount = 128;
 
   return (
     <Link href={`/hotels/${hotel.id}`} className="block group">
