@@ -249,7 +249,8 @@ export default function MyBookingsPage() {
                       {/* Hotel Image */}
                       <div className="md:w-64 h-48 md:h-auto relative bg-gray-200">
                         <img 
-                          src={booking.hotelImage || 'https://images.unsplash.com/photo-1566073771259-6a8506099945'}
+                          // src={booking.hotelImage || 'https://images.unsplash.com/photo-1566073771259-6a8506099945'}
+                          src={'https://images.unsplash.com/photo-1566073771259-6a8506099945'}
                           alt={booking.hotelName}
                           className="w-full h-full object-cover"
                           onError={(e) => {
