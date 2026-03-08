@@ -9,10 +9,19 @@
 
 A full-stack hotel booking platform that enables hotel owners to list properties and travelers to book accommodations seamlessly. Built with enterprise-grade technologies and deployed on Render with CI/CD pipeline.
 
-![Homepage](homepage.png)
-![Hotel Listing Page](hotel_listing_page.png)
-![Hotel Boooking Page](hotel_booking_page.png)
-![Booking Dashboard](booking_dashboard.png)
+## 📸 Screenshots
+
+<div align="center">
+  
+| | |
+|:---:|:---:|
+| **🏠 Homepage**<br>*Search and discover your perfect stay* | **🏨 Hotel Listings**<br>*Browse with advanced filters* |
+| ![Homepage](homepage.png) | ![Hotel Listing Page](hotel_listing_page.png) |
+| | |
+| **📅 Hotel Booking**<br>*Real-time availability & booking* | **📊 Booking Dashboard**<br>*Manage all reservations* |
+| ![Hotel Booking Page](hotel_booking_page.png) | ![Booking Dashboard](booking_dashboard.png) |
+
+</div>
 
 ## ✨ Features
 
