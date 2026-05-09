@@ -79,7 +79,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                 .requestMatchers("/api/auth/**").permitAll()
                 .requestMatchers("/api/hotels").permitAll()
-                .requestMatchers("/api/hotels/*").permitAll() 
+                .requestMatchers("/api/hotels/{id}").permitAll()
                 .requestMatchers("/api/hotels/search/**").permitAll()
                 .anyRequest().authenticated()
             )
