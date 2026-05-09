@@ -19,14 +19,13 @@ WORKDIR /app
 # Copy the jar
 COPY --from=build /app/target/*.jar app.jar
 
-# Create a startup script with debugging
 RUN echo '#!/bin/sh' > /app/start.sh && \
     echo 'echo "=========================================="' >> /app/start.sh && \
     echo 'echo "Starting Hotel Booking Backend"' >> /app/start.sh && \
     echo 'echo "=========================================="' >> /app/start.sh && \
     echo 'echo "Active Profile: $SPRING_PROFILES_ACTIVE"' >> /app/start.sh && \
-    echo 'echo "Database URL: $DATABASE_URL"' >> /app/start.sh && \
-    echo 'echo "Database Username: $DATABASE_USERNAME"' >> /app/start.sh && \
+    echo 'echo "Database URL: $SPRING_DATASOURCE_URL"' >> /app/start.sh && \
+    echo 'echo "Database Username: $SPRING_DATASOURCE_USERNAME"' >> /app/start.sh && \
     echo 'echo "=========================================="' >> /app/start.sh && \
     echo 'exec java -jar app.jar' >> /app/start.sh && \
     chmod +x /app/start.sh
